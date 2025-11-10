@@ -56,12 +56,6 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/orders", async (req, res) => {
-      const result = await orderColl.find().toArray();
-
-      res.send(result);
-    });
-
     app.post("/orders", async (req, res) => {
       const data = req.body;
       const result = await orderColl.insertOne(data);
@@ -70,13 +64,14 @@ async function run() {
     });
 
     app.get("/orders", async (req, res) => {
+      const email = req.query.email;
       const query = {};
-      if (query.email) {
+
+      if (email) {
         query.buyer_email = email;
       }
 
       const result = await orderColl.find(query).toArray();
-
       res.send(result);
     });
 
