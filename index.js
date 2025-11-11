@@ -91,6 +91,31 @@ async function run() {
       res.send(result);
     });
 
+    app.patch("/pets/:id", async (req, res) => {
+      const { id } = req.params;
+      const objectid = new ObjectId(id);
+
+      const updateUser = req.body;
+
+      const update = {
+        $set: {
+          name: updateUser.name,
+          category: updateUser.category,
+          price: updateUser.price,
+          location: updateUser.location,
+          description: updateUser.description,
+          image: updateUser.image,
+          email: updateUser.email,
+          date: updateUser.date,
+        },
+      };
+
+      const options = {};
+      const result = listingsColl.updateOne(objectid, update, options);
+
+      res.send(result);
+    });
+
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
