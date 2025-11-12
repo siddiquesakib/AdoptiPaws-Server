@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const port = 3000;
+const port =  3000;
 require("dotenv").config();
 
 app.use(cors());
@@ -24,12 +24,6 @@ async function run() {
     const db = client.db("AdoptiPaws-server");
     const listingsColl = db.collection("listings");
     const orderColl = db.collection("OrderColl");
-
-    // app.get("/pets", async (req, res) => {
-    //   const result = await listingsColl.find().toArray();
-
-    //   res.send(result);
-    // });
 
     app.get("/latest-pets", async (req, res) => {
       const result = await listingsColl
@@ -121,9 +115,9 @@ async function run() {
     });
 
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
+    // await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
