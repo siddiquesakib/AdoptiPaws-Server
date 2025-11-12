@@ -111,7 +111,11 @@ async function run() {
       };
 
       const options = {};
-      const result = listingsColl.updateOne(objectid, update, options);
+      const result = await listingsColl.updateOne(
+        { _id: objectid },
+        update,
+        options
+      );
 
       res.send(result);
     });
