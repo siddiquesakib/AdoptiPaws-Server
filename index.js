@@ -40,7 +40,7 @@ async function run() {
       const query = { email: email };
       const result = await usersColl.findOne(query);
       console.log("User found:", result ? "Yes" : "No");
-      res.send(result);
+      res.send(result || null);
     });
 
     app.post("/users", async (req, res) => {
@@ -56,6 +56,19 @@ async function run() {
 
       const result = await usersColl.insertOne(user);
       console.log("User created successfully:", user.email);
+      res.send(result);
+    });
+
+    // Make user admin by email (temporary route for initial setup)
+    app.patch("/users/make-admin/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = { email: email };
+
+      const update = {
+        $set: { role: "admin" },
+      };
+
+      const result = await usersColl.updateOne(query, update);
       res.send(result);
     });
 
